@@ -10,6 +10,7 @@ import { Textarea } from './components/ui/textarea'
 import { Toaster } from './components/ui/toaster'
 import { useToast } from './hooks/use-toast'
 import { AddMediaDialog } from './components/AddMediaDialog'
+import { EditMediaDialog } from './components/EditMediaDialog'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -291,14 +292,20 @@ function App() {
                         <p className="text-gray-600 text-sm line-clamp-2">{item.description}</p>
                       </div>
                       
-                      <Button
-                        onClick={() => handleRateMedia(item)}
-                        variant={userRating ? "default" : "outline"}
-                        className="w-full flex items-center space-x-2"
-                      >
-                        <Star className="w-4 h-4" />
-                        <span>{userRating ? `Rated ${userRating.rating}/5` : 'Rate This'}</span>
-                      </Button>
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={() => handleRateMedia(item)}
+                          variant={userRating ? "default" : "outline"}
+                          className="flex-1 flex items-center space-x-2"
+                        >
+                          <Star className="w-4 h-4" />
+                          <span>{userRating ? `Rated ${userRating.rating}/5` : 'Rate This'}</span>
+                        </Button>
+                        <EditMediaDialog 
+                          media={item} 
+                          onMediaUpdated={() => { loadMedia(); }} 
+                        />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
