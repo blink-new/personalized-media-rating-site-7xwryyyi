@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from './components/u
 import { Textarea } from './components/ui/textarea'
 import { Toaster } from './components/ui/toaster'
 import { useToast } from './hooks/use-toast'
+import { AddMediaDialog } from './components/AddMediaDialog'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -193,6 +194,7 @@ function App() {
             </div>
             
             <div className="flex items-center space-x-4">
+              <AddMediaDialog onMediaAdded={() => { loadMedia(); }} />
               <span className="text-sm text-gray-600 hidden sm:block">
                 {user?.email}
               </span>
@@ -279,6 +281,12 @@ function App() {
                           <span>{item.releaseYear}</span>
                           <span>•</span>
                           <span className="capitalize">{item.genre}</span>
+                          {item.country && (
+                            <>
+                              <span>•</span>
+                              <span>{item.country}</span>
+                            </>
+                          )}
                         </div>
                         <p className="text-gray-600 text-sm line-clamp-2">{item.description}</p>
                       </div>
@@ -319,7 +327,10 @@ function App() {
                 <div className="flex-1 space-y-1">
                   <h3 className="font-medium">{selectedMedia.title}</h3>
                   <p className="text-sm text-gray-600">{selectedMedia.releaseYear}</p>
-                  <p className="text-sm text-gray-600 capitalize">{selectedMedia.type} • {selectedMedia.genre}</p>
+                  <p className="text-sm text-gray-600 capitalize">
+                    {selectedMedia.type} • {selectedMedia.genre}
+                    {selectedMedia.country && ` • ${selectedMedia.country}`}
+                  </p>
                 </div>
               </div>
             )}
